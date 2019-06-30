@@ -1,0 +1,16 @@
+demo:
+kubectl run kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1 --port=8080
+kubectl proxy
+curl http://localhost:8001/version
+kubectl logs $pod_name
+kubectl exec -it $pod_name bash 
+kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
+kubectl get service
+curl $(minikube ip):$NODE_PORT
+kubectl label pod $pod_name app=v1
+kubectl get -l app=v1
+kubectl scale deployments/kubernetes-bootcamp --replicas=2
+kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
+kubectl rollout status deployments/kubernetes-bootcamp
+kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v10
+kubectl rollout undo deployments/kubernetes-bootcamp 

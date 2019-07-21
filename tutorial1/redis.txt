@@ -1,0 +1,20 @@
+Redis:
+
+kubectl apply -f redis-master-deployment.yaml
+kubectl logs $pod_name
+kubectl apply -f redis-master-service.yaml
+kubectl get service
+kubectl apply -f redis-slave-deployment.yaml
+kubectl apply -f redis-slave-service.yaml
+kubectl apply -f frontend-deployment.yaml
+kubectl get pods -l app=guestbook -l tier=frontend
+kubectl apply -f frontend-service.yaml 
+kubectl get services
+curl $(minikube ip):$node_port
+kubectl scale deployment frontend --replicas=5
+
+clear up:
+kubectl delete deployment -l app=redis
+kubectl delete service -l app=redis
+kubectl delete deployment -l app=guestbook
+kubectl delete service -l app=guestbook
